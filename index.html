@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eaglercraft - Free Open Source Browser Minecraft</title>
+<meta name="description" content="Eaglercraft is a free, open-source Minecraft you can play in any web browser.">
+<link rel="icon" href="https://eaglercraft.com/favicon.png">
+<style>
+  :root{
+    --color-white:#ffffff;
+    --color-bright:#e0d0d0;
+    --color-blue:#aaaaff;
+    --color-gray:#595959;
+    --color-light-gray:#8e8e8e;
+    --color-green:#199719;
+    --color-green-dark:#116511;
+    --color-orange:#f7942b;
+    --color-orange-dark:#b36b1f;
+  }
+
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background-color:#1d1d1d;
+    background-image:url(https://eaglercraft.com/stone.png);
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--color-bright);
+  }
+  main { flex: 1; }
+
+  h1 { font-size: 1.75em; }
+  h2 { font-size: 1.5em; margin-top: 2em; }
+  p { font-size: .9em; margin-top: 1.5em; line-height: 1.6; }
+  a { color: var(--color-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  .button{
+    background: linear-gradient(#9e9e9e,#4e4e4e);
+    color: var(--color-white);
+    font-weight:700;
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:.25em;
+    padding:.6em 1.2em;
+    border:none;
+    cursor:pointer;
+  }
+  .button--orange{ background: linear-gradient(var(--color-orange), var(--color-orange-dark)); }
+  .button--green{ background: linear-gradient(var(--color-green), var(--color-green-dark)); color:#fff; }
+
+  /* Header */
+  header{
+    background-image:url(https://eaglercraft.com/dirt.png);
+    height:48px;
+    margin-bottom:2em;
+    padding:0 1em;
+    position:sticky;
+    top:0;
+    z-index:999;
+  }
+  header nav{
+    margin:auto;
+    max-width:80rem;
+    display:flex;
+    align-items:center;
+    column-gap:1em;
+    height:100%;
+  }
+  .logo{
+    width:200px;
+    font-weight:800;
+    color:#fff;
+    font-size:1.1rem;
+  }
+  .nav-links{ display:flex; align-items:center; gap:.25em; }
+  .nav-links a{ font-weight:700; padding:.5em; color:#fff; }
+
+  /* Layout */
+  .layout{
+    width:1000px;
+    max-width:95%;
+    margin:1em auto;
+    padding:20px 0 40px;
+    display:flex;
+    justify-content:center;
+    column-gap:2em;
+    align-items:flex-start;
+  }
+  .main-content{ width:100%; max-width:640px; flex-shrink:0; }
+
+  @media (max-width: 1024px){
+    .layout{ flex-direction:column; align-items:center; }
+    .sidebar{ margin-bottom:2em; order:1; max-width:300px; width:100%; }
+    .main-content{ order:2; }
+  }
+
+  /* Trailer thumbnail */
+  .trailer{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+  }
+
+  /* News + community */
+  .community-section{ display:flex; gap:40px; margin-top:2em; }
+  .community-section > div{ flex:1; }
+  .community-section h2{
+    font-size:1.1rem;
+    padding-left:36px;
+    background-repeat:no-repeat;
+    padding-top:4px;
+    height:28px;
+    margin-bottom:1em;
+  }
+  .post-item{ margin-bottom:.5rem; }
+  .post-time{ font-size:.75rem; margin:.2rem 0 0; color: var(--color-light-gray); }
+
+  @media (max-width:640px){
+    .community-section{ flex-direction:column; gap:20px; }
+  }
+
+  /* Sidebar */
+  .sidebar{
+    width:300px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .sidebar img{ max-width:100%; height:auto; }
+  .play-btn{ font-size:130%; width:200px; margin-top:1em; }
+  .play-friends-btn{ width:200px; margin-top:1em; }
+  .live-count{
+    display:flex; align-items:center; justify-content:center; gap:.5em;
+    margin-top:1em; font-size:1.05em; color:#a0a0a0;
+  }
+  
+  .announcement{ margin-top:1em; font-weight:700; color:#ffe34d; }
+
+  footer{
+    background-color:#242424;
+    color:#b8b8b8;
+    text-align:center;
+    font-size:14px;
+    padding:1.5rem 2rem;
+    margin-top:auto;
+  }
+  footer a{ color:#e0e0e0; font-weight:700; }
+</style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <img src="https://eaglercraftgame.io/data/image/options/eaglercraft-game-logo.png" class="logo">
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="https://servers.eaglercraft.com" target="_blank" rel="noopener noreferrer">Servers*</a>
+        <a href="https://gitflic.ru/project/lax1dude/eaglercraft-1_8" target="_blank" rel="noopener noreferrer">Source*</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="main-content">
+      <h1 class="sr-only">Eaglercraft - A Free &amp; Open Source Browser Minecraft</h1>
+
+      <div class="trailer">
+        <iframe width="640" height="370" src="https://www.youtube.com/embed/MmB9b5njVbA"></iframe>
+      </div>
+
+      <p>Minecraft is a game about breaking and placing blocks. At first, people built structures to protect against nocturnal monsters, but as the game grew players worked together to create wonderful, imaginative things.</p>
+
+      <p>It can also be about adventuring with friends or watching the sun rise over a blocky ocean. It's pretty. Brave players battle terrible things in The Nether, which is more scary than pretty. You can also visit a land of mushrooms if it sounds more like your cup of tea.</p>
+
+      <p>
+        You can play Minecraft on PC/Mac/Browser.
+        It can be played in the browser with Eaglercraft, an AOT compiled voxel game inspired from Minecraft designed to run on Javascript.
+        It uses TeaVM and LAX1DUDE's OpenGL emulator to run a Java virtual machine fully compatible with browsers.
+        Eaglercraft can be played on ChromeOS, most desktops, and pretty much any device with a web browser.
+      </p>
+
+      <section class="community-section">
+        <div>
+          <h1>Eaglercraft News</h1>
+          <p>We update eaglercraft.com with snapshots to explain our latest updates to all versions of Eaglercraft.</p>
+          <div class="post-item">
+            <a>Server Migration</a>
+            <p class="post-time">2026-03-14</p>
+          </div>
+          <div class="post-item">
+            <a>Eagler Site Recode</a>
+            <p class="post-time">2025-08-27</p>
+          </div>
+        </div>
+        <div>
+          <h1>Join Us on Discord</h1>
+          <p>Talk to other Eaglercraft fans on Discord by joining
+            <a href="https://discord.gg/dfvHnREH4D" target="_blank" rel="noopener noreferrer">the official guild</a>.
+          </p>
+          <p>This guild is for Eaglercraft server hosting and guides to help members make a Eaglercraft server.</p>
+        </div>
+      </section>
+    </section>
+
+    <aside class="sidebar">
+      <img src="https://eaglercraft.com/steve.png" alt="Left to right: a pig, Steve, and a sheep" width="300" height="202">
+
+              <div class="options" id="options">
+            <p>Version</p>
+            <select id="Version" class="dropdown">
+		        <option value="https://rooseguy8.github.io/Eaglercraft-1.12.2-u3/">Use Latest Version (1.12.2)</option>
+                <option value="https://rusello25.github.io/Eaglercraft-Lambda-0.7.0/">Eaglercraft Lambda 0.7.0</option>
+                <option value="https://rusello25.github.io/Eaglercraft-Zeta-0.0.2/">Eaglercraft Zeta 0.0.2</option>
+                <option value="https://rooseguy8.github.io/Eaglercraft-1.12.2-u3/">Release 1.12.2</option>
+                <option value="https://eaglercraft.com/mc/1.8.8/">Release 1.8.8</option>
+                <option value="https://eaglercraft.com/mc/1.5.2/">Release 1.5.2</option>
+                <option value="https://eaglercraft.com/mc/b1.7.3/">Beta 1.7.3</option>
+                <option value="https://eaglercraft.com/mc/b1.3/">Beta 1.3</option>
+                <option value="https://rusello25.github.io/Eaglercraft-Beta-1.1_02-25w27a-/">Beta 1.1_02</option>
+                <option value="https://eaglercraft.com/mc/a1.2.6/">Alpha 1.2.6</option>
+                <option value="https://eaglercraft.com/mc/indev/">Indev</option>
+            </select>
+        </div>
+            <br>
+            <button id="play-now" class="play-now__button button button--orange">Play Now!</button>
+
+            <script>
+                document.getElementById('play-now').addEventListener('click', function() {
+                    const dropdown = document.getElementById('Version');
+                    const selectedURL = dropdown.value;
+                    window.location.href = selectedURL;
+                });
+            </script>
+
+        <br>
+        </aside>
+
+    </aside>
+  </main>
+
+  <footer>
+    Eaglercraft 2023-2026 —
+    <a href="https://eaglercraft.com/p/legal#terms-of-service">Terms of Service</a> |
+    <a href="https://eaglercraft.com/p/legal#privacy-policy">Privacy Policy</a> |
+    <a href="https://eaglercraft.com/p/legal#dmca">DMCA</a>
+    — This website is not affiliated with Mojang.
+  </footer>
+
+</body>
+</html>
